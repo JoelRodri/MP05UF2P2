@@ -80,32 +80,32 @@ class HashTableEx2Test {
     @Test
     void get() {
         HashTableEx2 ht = new HashTableEx2();
-        System.out.println("Las colisiones son: " + ht.getCollisionsForKey("2", 4));
-        System.out.println("Las colisiones son: " + ht.getCollisionsForKey("3", 2));
+        System.out.println("Las colisiones son: " + ht.getCollisionsForKey("0", 4));
+        System.out.println("Las colisiones son: " + ht.getCollisionsForKey("1", 2));
 
         // Obtenir un element que no col·lisiona dins una taula vuida.
-        Assertions.assertEquals(null,ht.get("2"));
+        Assertions.assertEquals(null,ht.get("0"));
 
         // Obtenir un element que col·lisiona dins una taula (1a posició dins el mateix bucket).
-        ht.put("2","hola");
         // Obtenir un element que col·lisiona dins una taula (2a posició dins el mateix bucket).
-        ht.put("13","skjgbsrk");
-        Assertions.assertEquals("hola",ht.get("2"));
-        Assertions.assertEquals("skjgbsrk",ht.get("13"));
+        ht.put("0","hola");
+        ht.put("11","adios");
+        Assertions.assertEquals("hola",ht.get("0"));
+        Assertions.assertEquals("adios",ht.get("11"));
 
         // Obtenir un element que col·lisiona dins una taula (3a posició dins el mateix bucket).
-        ht.put("24","wejgwrkbglh");
-        Assertions.assertEquals("wejgwrkbglh",ht.get("24"));
+        ht.put("22","jaja");
+        Assertions.assertEquals("jaja",ht.get("22"));
 
         // Obtenir un elements que no existeix perquè la seva posició està buida.
         Assertions.assertEquals(null,ht.get("1"));
 
         // Obtenir un elements que no existeix, tot i que la seva posició està ocupada per un altre que no col·lisiona.
-        ht.put("3","ljbgrket hkl");
-        Assertions.assertEquals(null,ht.get("14"));
+        ht.put("2","comotas");
+        Assertions.assertEquals(null,ht.get("13"));
 
         // Obtenir un elements que no existeix, tot i que la seva posició està ocupada per 3 elements col·lisionats.
-        Assertions.assertEquals(null,ht.get("35"));
+        Assertions.assertEquals(null,ht.get("33"));
     }
 
     @Test

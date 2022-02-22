@@ -40,14 +40,16 @@ public class HashTableEx2 {
             //aqui actualizamos
             if(temp.key.equals(key)){
                 temp.value = value;
-            }else{                          // si no encuentra la key, buscara en las colisiones
+            }else{
+                // si no encuentra la key, buscara en las colisiones
                 while(temp.next != null){
                     temp = temp.next;
                     if(temp.key.equals(key)) {
                         temp.value = value;
                         existe = true;
                     }
-                }                           // si no encuentra nada, finalmente lo añade
+                }
+                // si no encuentra nada, finalmente lo añade
                 if (!existe){
                     temp.next = hashEntry;
                     hashEntry.prev = temp;
@@ -68,11 +70,13 @@ public class HashTableEx2 {
             HashEntry temp = entries[hash];
 
             while( !temp.key.equals(key))
+                if (temp.next != null){
                 temp = temp.next;
-
+            }else{
+                return null;
+            }
             return temp.value;
         }
-
         return null;
     }
 
