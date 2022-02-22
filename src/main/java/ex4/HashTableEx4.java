@@ -1,4 +1,4 @@
-package ex2;
+package ex4;
 
 // Original source code: https://gist.github.com/amadamala/3cdd53cb5a6b1c1df540981ab0245479
 // Modified by Fernando Porrino Serrano for academic purposes.
@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * Implementació d'una taula de hash sense col·lisions.
  * Original source code: https://gist.github.com/amadamala/3cdd53cb5a6b1c1df540981ab0245479
  */
-public class HashTableEx2 {
+public class HashTableEx4 {
     private int SIZE = 16;
     private int ITEMS = 0;
     private HashEntry[] entries = new HashEntry[SIZE];
@@ -27,7 +27,7 @@ public class HashTableEx2 {
      * @param key La clau de l'element a afegir.
      * @param value El propi element que es vol afegir.
      */
-    public void put(String key, String value) {
+    public void put(String key, Object value) {
         int hash = getHash(key);
         final HashEntry hashEntry = new HashEntry(key, value);
         boolean existe = false;
@@ -64,13 +64,12 @@ public class HashTableEx2 {
      * @param key La clau de l'element a trobar.
      * @return El propi element que es busca (null si no s'ha trobat).
      */
-    public String get(String key) {
+    public Object get(String key) {
         int hash = getHash(key);
         if(entries[hash] != null) {
             HashEntry temp = entries[hash];
 
-            while( !temp.key.equals(key)){
-
+            while( !temp.key.equals(key)) {
                 if (temp.next == null) {
                     return null;
                 }
@@ -98,20 +97,23 @@ public class HashTableEx2 {
                     break;
                 }
             }
-            if (temp != null){
-                if (temp.prev == null && temp.next == null){
-                    entries[hash] = null;
-                }else if(temp.prev == null && temp.next != null){
-                    entries[hash] = temp.next;
-                }else if(temp.prev != null && temp.next == null){
-                    temp.prev.next = null;
-                }else if(temp.prev != null & temp.next != null){
-                    temp.next.prev = temp.prev;
-                    temp.prev.next = temp.next;
+            if (temp != null){              // Si no es nullo
+                if(temp.prev == null) {     // No tiene superior
+                    if (temp.next == null){ // Tampoco siguiente
+                        entries[hash] = null;
+                    }else{                  // Tiene siguiente
+                        entries[hash] = temp.next;
+                    }
+                } else {                    // Tiene superior
+                    if(temp.next != null){  // Tiene siguiente
+                        temp.next.prev = temp.prev;
+                        temp.prev.next = temp.next;
+                    }else{                  // No tiene siguiente
+                        temp.prev.next = null;
+                    }
                 }
                 ITEMS--;
             }
-
         }
     }
 
@@ -123,13 +125,13 @@ public class HashTableEx2 {
 
     private class HashEntry {
         String key;
-        String value;
+        Object value;
 
         // Linked list of same hash entries.
         HashEntry next;
         HashEntry prev;
 
-        public HashEntry(String key, String value) {
+        public HashEntry(String key, Object value) {
             this.key = key;
             this.value = value;
             this.next = null;
@@ -242,22 +244,21 @@ public class HashTableEx2 {
         return  foundKeys;
     }
 
-    public static void main(String[] args) {
-        HashTableEx2 hashTable = new HashTableEx2();
-        
-        // Put some key values.
-        for(int i=0; i<30; i++) {
-            final String key = String.valueOf(i);
-            hashTable.put(key, key);
-        }
-
-        // Print the HashTable structure
-        log("****   HashTable  ***");
-        log(hashTable.toString());
-        log("\nValue for key(20) : " + hashTable.get("20") );
-    }
-
-    private static void log(String msg) {
+//    public static void main(String[] args) {
+//        HashTableEx3 hashTable = new HashTableEx3();
+//
+//        // Put some key values.
+//        for (int i = 0; i < 30; i++) {
+//            final String key = String.valueOf(i);
+//            hashTable.put(key, key);
+//        }
+//
+//        // Print the HashTable structure
+//        HashTableEx3.log("****   HashTable  ***");
+//        HashTableEx3.log(hashTable.toString());
+//        HashTableEx3.log("\nValue for key(20) : " + hashTable.get("20"));
+//    }
+    public static void log(String msg) {
         System.out.println(msg);
     }
 }

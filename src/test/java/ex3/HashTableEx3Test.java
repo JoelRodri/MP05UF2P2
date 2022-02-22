@@ -1,9 +1,9 @@
-package ex2;
+package ex3;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-class HashTableEx2Test {
+class HashTableEx3Test {
 
     @Test
     void count() {
@@ -15,7 +15,7 @@ class HashTableEx2Test {
 
     @Test
     void put() {
-        HashTableEx2 hashTableEx3 = new HashTableEx2();
+        HashTableEx3 hashTableEx3 = new HashTableEx3();
         System.out.println("Las colisiones son: " + hashTableEx3.getCollisionsForKey("0", 3));
 
         // Inserir un element que no col·lisiona dins una taula vuida.
@@ -76,7 +76,7 @@ class HashTableEx2Test {
 
     @Test
     void get() {
-        HashTableEx2 hashTableEx3 = new HashTableEx2();
+        HashTableEx3 hashTableEx3 = new HashTableEx3();
         System.out.println("Las colisiones son: " + hashTableEx3.getCollisionsForKey("0", 4));
         System.out.println("Las colisiones son: " + hashTableEx3.getCollisionsForKey("1", 2));
 
@@ -107,7 +107,7 @@ class HashTableEx2Test {
 
     @Test
     void drop() {
-        HashTableEx2 hashTableEx3 = new HashTableEx2();
+        HashTableEx3 hashTableEx3 = new HashTableEx3();
 
         hashTableEx3.put("0","hola");
         hashTableEx3.put("1","adios");
