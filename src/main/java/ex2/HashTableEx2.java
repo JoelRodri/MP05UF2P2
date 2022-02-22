@@ -89,13 +89,30 @@ public class HashTableEx2 {
         if(entries[hash] != null) {
 
             HashEntry temp = entries[hash];
-            while( !temp.key.equals(key))
-                temp = temp.next;
-
-            if(temp.prev == null) entries[hash] = null;             //esborrar element únic (no col·lissió)
-            else{
-                if(temp.next != null) temp.next.prev = temp.prev;   //esborrem temp, per tant actualitzem l'anterior al següent
-                temp.prev.next = temp.next;                         //esborrem temp, per tant actualitzem el següent de l'anterior
+            while( !temp.key.equals(key)){  // busca dentro del bucket hasta que encuentre la key, o nada
+                if (temp.next != null){
+                    temp = temp.next;
+                }else {
+                    temp = null;
+                    break;
+                }
+            }
+            if (temp != null){              // Si no es nullo
+                if(temp.prev == null) {     // No tiene superior
+                    if (temp.next == null){ // Tampoco siguiente
+                        entries[hash] = null;
+                    }else{                  // Tiene siguiente
+                        entries[hash] = temp.next;
+                    }
+                } else {                    // Tiene superior
+                    if(temp.next != null){  // Tiene siguiente
+                        temp.next.prev = temp.prev;
+                        temp.prev.next = temp.next;
+                    }else{                  // No tiene siguiente
+                        temp.prev.next = null;
+                    }
+                }
+                ITEMS--;
             }
         }
     }
