@@ -20,18 +20,18 @@ class HashTableEx4Test {
         System.out.println("Las colisiones son: " + hashTableEx4.getCollisionsForKey("0", 3));
 
         // Inserir un element que no col·lisiona dins una taula vuida.
-        hashTableEx4.put("0","hola");
+        hashTableEx4.put("0",'a');
         Assertions.assertEquals(1, hashTableEx4.count());
         Assertions.assertEquals(16, hashTableEx4.size());
         Assertions.assertEquals("\n" +
-                " bucket[0] = [0, hola]", hashTableEx4.toString());
+                " bucket[0] = [0, a]", hashTableEx4.toString());
 
         // Inserir un element que no col·lisiona dins una taula no vuida.
         hashTableEx4.put("1","adios");
         Assertions.assertEquals(2, hashTableEx4.count());
         Assertions.assertEquals(16, hashTableEx4.size());
         Assertions.assertEquals("\n" +
-                " bucket[0] = [0, hola]" + "\n" +
+                " bucket[0] = [0, a]" + "\n" +
                 " bucket[1] = [1, adios]", hashTableEx4.toString());
 
         // Inserir un element que col·lisiona dins una taula no vuida, que es col·locarà en 2a posició dins el mateix bucket.
@@ -39,7 +39,7 @@ class HashTableEx4Test {
         Assertions.assertEquals(3, hashTableEx4.count());
         Assertions.assertEquals(16, hashTableEx4.size());
         Assertions.assertEquals("\n" +
-                " bucket[0] = [0, hola]" + "\n" +
+                " bucket[0] = [0, a]" + "\n" +
                 " bucket[1] = [1, adios] -> [12, que]", hashTableEx4.toString());
 
         // Inserir un element que col·lisiona dins una taula no vuida, que es col·locarà en 3a posició dins el mateix bucket.
@@ -47,15 +47,15 @@ class HashTableEx4Test {
         Assertions.assertEquals(4, hashTableEx4.count());
         Assertions.assertEquals(16, hashTableEx4.size());
         Assertions.assertEquals("\n" +
-                " bucket[0] = [0, hola]" + "\n" +
+                " bucket[0] = [0, a]" + "\n" +
                 " bucket[1] = [1, adios] -> [12, que] -> [23, tal]", hashTableEx4.toString());
 
         //Inserir un elements que ja existeix (update) sobre un element que no col·lisiona dins una taula no vuida.
-        hashTableEx4.put("0","jaja");
+        hashTableEx4.put("0",5);
         Assertions.assertEquals(4, hashTableEx4.count());
         Assertions.assertEquals(16, hashTableEx4.size());
         Assertions.assertEquals("\n" +
-                " bucket[0] = [0, jaja]" + "\n" +
+                " bucket[0] = [0, 5]" + "\n" +
                 " bucket[1] = [1, adios] -> [12, que] -> [23, tal]", hashTableEx4.toString());
 
         // Inserir un elements que ja existeix (update) sobre un element que si col·lisiona (2a posició) dins una taula no vuida.
@@ -63,7 +63,7 @@ class HashTableEx4Test {
         Assertions.assertEquals(4, hashTableEx4.count());
         Assertions.assertEquals(16, hashTableEx4.size());
         Assertions.assertEquals("\n" +
-                " bucket[0] = [0, jaja]" + "\n" +
+                " bucket[0] = [0, 5]" + "\n" +
                 " bucket[1] = [1, adios] -> [12, como] -> [23, tal]", hashTableEx4.toString());
 
         // Inserir un elements que ja existeix (update) sobre un element que si col·lisiona (3a posició) dins una taula no vuida.
@@ -71,7 +71,7 @@ class HashTableEx4Test {
         Assertions.assertEquals(4, hashTableEx4.count());
         Assertions.assertEquals(16, hashTableEx4.size());
         Assertions.assertEquals("\n" +
-                " bucket[0] = [0, jaja]" + "\n" +
+                " bucket[0] = [0, 5]" + "\n" +
                 " bucket[1] = [1, adios] -> [12, como] -> [23, estas]", hashTableEx4.toString());
     }
 

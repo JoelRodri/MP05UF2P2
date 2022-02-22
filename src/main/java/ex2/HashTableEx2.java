@@ -68,9 +68,8 @@ public class HashTableEx2 {
         int hash = getHash(key);
         if(entries[hash] != null) {
             HashEntry temp = entries[hash];
-
+            // busca hasta que encuentra o hasta que no hay mas
             while( !temp.key.equals(key)){
-
                 if (temp.next == null) {
                     return null;
                 }
@@ -88,7 +87,6 @@ public class HashTableEx2 {
     public void drop(String key) {
         int hash = getHash(key);
         if(entries[hash] != null) {
-
             HashEntry temp = entries[hash];
             while( !temp.key.equals(key)){  // busca dentro del bucket hasta que encuentre la key, o nada
                 if (temp.next != null){
@@ -99,15 +97,15 @@ public class HashTableEx2 {
                 }
             }
             if (temp != null){
-                if (temp.prev == null && temp.next == null){
-                    entries[hash] = null;
-                }else if(temp.prev == null && temp.next != null){
-                    entries[hash] = temp.next;
-                }else if(temp.prev != null && temp.next == null){
-                    temp.prev.next = null;
-                }else if(temp.prev != null & temp.next != null){
-                    temp.next.prev = temp.prev;
-                    temp.prev.next = temp.next;
+                if (temp.prev == null && temp.next == null){ //solo
+                    entries[hash] = null; // eliminado directamente
+                }else if(temp.prev == null && temp.next != null){ //primero
+                    entries[hash] = temp.next; // el primero es tu siguiente
+                }else if(temp.prev != null && temp.next == null){ //ultimo
+                    temp.prev.next = null; // el anterior no tiene siguiente
+                }else if(temp.prev != null & temp.next != null){ // esta en medio de dos
+                    temp.next.prev = temp.prev; // el anterior del siguiente, es tu anterior
+                    temp.prev.next = temp.next; // el siguiente del anterior, es tu siguiente
                 }
                 ITEMS--;
             }
@@ -244,7 +242,7 @@ public class HashTableEx2 {
 
     public static void main(String[] args) {
         HashTableEx2 hashTable = new HashTableEx2();
-        
+
         // Put some key values.
         for(int i=0; i<30; i++) {
             final String key = String.valueOf(i);
